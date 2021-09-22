@@ -90,6 +90,8 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
+### Version 1.0.2.0 (StratisFullNode release/1.0.9.2)
+- No API updates for SFN release/1.0.9.2
 ### Version 1.0.1.0 (StratisFullNode release/1.0.9.1)
 - Updates for SFN release/1.0.9.1
   - Note: wallet.history strax integration test fails due to negative fee returned when address specified.
