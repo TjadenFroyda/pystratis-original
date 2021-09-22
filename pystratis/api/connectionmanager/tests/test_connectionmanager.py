@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_addnode(mocker: MockerFixture, network):
     data = True
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
-    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock())
 
     response = connection_manager.addnode(ipaddr='http://localhost', command='add')
 
@@ -107,7 +107,7 @@ def test_getpeerinfo(mocker: MockerFixture, network):
         }
     ]
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
-    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock())
 
     response = connection_manager.getpeerinfo()
 

@@ -73,7 +73,7 @@ def test_asyncloopsstats(mocker: MockerFixture, network):
     --------------------------------------------------------------------------------------------------------------
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock())
 
     response = dashboard.asyncloops_stats()
 
@@ -149,7 +149,7 @@ def test_stats(mocker: MockerFixture, network):
     x/x          : Confirmed balance: x.x          Unconfirmed balance: 0.00000000
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock())
 
     response = dashboard.stats()
 

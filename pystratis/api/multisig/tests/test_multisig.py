@@ -43,7 +43,7 @@ def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_addres
         'transactionId': generate_uint256
     }
     mocker.patch.object(Multisig, 'post', return_value=data)
-    multisig = Multisig(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    multisig = Multisig(network=network, baseuri=mocker.MagicMock())
     response = multisig.build_transaction(
         recipients=[
             Recipient(

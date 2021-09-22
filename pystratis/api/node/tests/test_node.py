@@ -77,7 +77,7 @@ def test_status(mocker: MockerFixture, network):
         'inIbd': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.status()
 

@@ -68,7 +68,7 @@ def test_status(mocker: MockerFixture, network, generate_uint256, generate_compr
         }
     }
     mocker.patch.object(Interop, 'get', return_value=data)
-    interop = Interop(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    interop = Interop(network=network, baseuri=mocker.MagicMock())
 
     response = interop.status()
 

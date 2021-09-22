@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_overamountatheight(mocker: MockerFixture, network, overamountatheightresponse):
     data = overamountatheightresponse(network)
     mocker.patch.object(Balances, 'get', return_value=data)
-    balances = Balances(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    balances = Balances(network=network, baseuri=mocker.MagicMock())
 
     response = balances.over_amount_at_height(block_height=10, amount=10)
 
@@ -53,7 +53,7 @@ def test_overamountatheight(mocker: MockerFixture, network, overamountatheightre
 def test_overamountatheight_none(mocker: MockerFixture, network):
     data = []
     mocker.patch.object(Balances, 'get', return_value=data)
-    balances = Balances(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    balances = Balances(network=network, baseuri=mocker.MagicMock())
 
     response = balances.over_amount_at_height(block_height=10, amount=10)
 

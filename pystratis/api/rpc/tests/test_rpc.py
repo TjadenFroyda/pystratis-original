@@ -41,7 +41,7 @@ def test_call_by_name(mocker: MockerFixture, network):
         }
     }
     mocker.patch.object(RPC, 'post', return_value=data)
-    rpc = RPC(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    rpc = RPC(network=network, baseuri=mocker.MagicMock())
 
     response = rpc.call_by_name(command='rpccommand')
 

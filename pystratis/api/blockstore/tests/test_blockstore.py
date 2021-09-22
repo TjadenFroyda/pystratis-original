@@ -43,7 +43,7 @@ def test_addressindexertip(mocker: MockerFixture, network, generate_uint256):
         'tipHeight': randint(0, 300)
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
     response = blockstore.addressindexer_tip()
 
     assert response.tip_hash.to_hex() == data['tipHash']

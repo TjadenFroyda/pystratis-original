@@ -42,7 +42,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_mnemonic(mocker: MockerFixture, network):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.mnemonic(language='English', word_count=12)
 

@@ -47,7 +47,7 @@ def test_general_info(mocker: MockerFixture, network):
         'connectedNodes': 10
     }
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
 
     response = federation_wallet.general_info()
 
@@ -80,7 +80,7 @@ def test_balance(mocker: MockerFixture, network, get_base_keypath, generate_p2pk
         ]
     }
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
 
     response = federation_wallet.balance()
 

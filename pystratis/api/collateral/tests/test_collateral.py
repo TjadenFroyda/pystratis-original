@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_join_federation(mocker: MockerFixture, strax_network, generate_p2pkh_address, generate_compressed_pubkey):
     data = {'MinerPublicKey': generate_compressed_pubkey}
     mocker.patch.object(Collateral, 'post', return_value=data)
-    collateral = Collateral(network=strax_network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    collateral = Collateral(network=strax_network, baseuri=mocker.MagicMock())
     response = collateral.join_federation(
         collateral_address=generate_p2pkh_address(network=strax_network),
         collateral_wallet_name='Test_InterfluxStrax_Wallet',

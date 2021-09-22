@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_reconstruct(mocker: MockerFixture, network):
     data = "Reconstruction flag set, please restart the node."
     mocker.patch.object(Federation, 'put', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.reconstruct()
 
@@ -65,7 +65,7 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.members_current()
 
@@ -98,7 +98,7 @@ def test_member(mocker: MockerFixture, network, generate_compressed_pubkey, get_
     ]
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.members()
 

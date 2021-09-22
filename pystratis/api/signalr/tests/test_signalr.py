@@ -40,7 +40,7 @@ def test_get_connection_info(mocker: MockerFixture, network):
         'signalRPort': 17104
     }
     mocker.patch.object(SignalR, 'get', return_value=data)
-    signalr = SignalR(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    signalr = SignalR(network=network, baseuri=mocker.MagicMock())
 
     response = signalr.get_connection_info()
 

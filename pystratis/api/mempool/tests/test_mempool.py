@@ -41,7 +41,7 @@ def test_raw_mempool(mocker: MockerFixture, network, generate_uint256):
         generate_uint256
     ]
     mocker.patch.object(Mempool, 'get', return_value=data)
-    mempool = Mempool(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    mempool = Mempool(network=network, baseuri=mocker.MagicMock())
 
     response = mempool.get_raw_mempool()
 

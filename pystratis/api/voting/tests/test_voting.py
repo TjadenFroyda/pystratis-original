@@ -75,7 +75,7 @@ def test_executed_polls(mocker: MockerFixture, network, generate_uint256, genera
         }
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.executed_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=generate_compressed_pubkey

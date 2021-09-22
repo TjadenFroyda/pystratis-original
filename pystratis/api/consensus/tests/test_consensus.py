@@ -96,7 +96,7 @@ def test_deployment_flags(mocker: MockerFixture, network):
         }
     ]
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.deployment_flags()
 
@@ -109,7 +109,7 @@ def test_deployment_flags(mocker: MockerFixture, network):
 def test_get_best_block_hash(mocker: MockerFixture, network, generate_uint256):
     data = generate_uint256
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.get_best_blockhash()
 
@@ -122,7 +122,7 @@ def test_get_best_block_hash(mocker: MockerFixture, network, generate_uint256):
 def test_get_block_hash(mocker: MockerFixture, network, generate_uint256):
     data = generate_uint256
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.get_blockhash(height=10)
 

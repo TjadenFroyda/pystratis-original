@@ -36,7 +36,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(Notifications, 'get', return_value=data)
-    notifications = Notifications(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    notifications = Notifications(network=network, baseuri=mocker.MagicMock())
 
     notifications.sync(sync_from=generate_uint256)
 

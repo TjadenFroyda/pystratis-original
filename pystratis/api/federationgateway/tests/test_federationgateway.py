@@ -57,7 +57,7 @@ def test_deposits(mocker: MockerFixture, network, generate_uint256, generate_p2p
         }]
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.deposits(block_height=5)
     assert response == [MaturedBlockDepositsModel(**x) for x in data['value']]
     # noinspection PyUnresolvedReferences
@@ -75,7 +75,7 @@ def test_pending_transfer(mocker: MockerFixture, network, generate_uint256, gene
         'tx': generate_coinbase_transaction(txid)
     }]
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.pending_transfer(deposit_id=data[0]['depositId'], transaction_id=txid)
     assert response == [CrossChainTransferModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -93,7 +93,7 @@ def test_fullysigned_transfer(mocker: MockerFixture, network, generate_uint256, 
         'tx': generate_coinbase_transaction(txid)
     }]
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.fullysigned_transfer(deposit_id=data[0]['depositId'], transaction_id=txid)
     assert response == [CrossChainTransferModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -123,7 +123,7 @@ def test_member_info(mocker: MockerFixture, network, generate_compressed_pubkey)
         ]
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.member_info()
     assert response == FederationMemberInfoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -165,7 +165,7 @@ def test_info(mocker: MockerFixture, network, generate_compressed_pubkey, genera
         'minconfdistributiondeposits': 100
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.info()
     assert response == FederationGatewayInfoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -176,7 +176,7 @@ def test_info(mocker: MockerFixture, network, generate_compressed_pubkey, genera
 def test_ip_add(mocker: MockerFixture, network):
     data = 'http://localhost has been added.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_add(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -187,7 +187,7 @@ def test_ip_add(mocker: MockerFixture, network):
 def test_ip_remove(mocker: MockerFixture, network):
     data = 'http://localhost has been removed.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_remove(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -198,7 +198,7 @@ def test_ip_remove(mocker: MockerFixture, network):
 def test_ip_replace(mocker: MockerFixture, network):
     data = 'http://localhost has been replaced with http://newhost.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_replace(ipaddrtouse='http://newhost', ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -212,7 +212,7 @@ def test_verify_transfer(mocker: MockerFixture, network, generate_uint256):
         'errors': []
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.verify_transfer(deposit_id_transaction_id=generate_uint256)
     assert response == ValidateTransactionResultModel(**data)
     # noinspection PyUnresolvedReferences

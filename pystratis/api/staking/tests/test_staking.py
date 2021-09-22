@@ -51,7 +51,7 @@ def test_get_staking_info(mocker: MockerFixture, network):
         'expectedTime': 1,
     }
     mocker.patch.object(Staking, 'get', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
 
     response = staking.get_staking_info()
 
@@ -64,7 +64,7 @@ def test_get_staking_info(mocker: MockerFixture, network):
 def test_start_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.start_staking(name='Name', password='password')
 
     # noinspection PyUnresolvedReferences
@@ -75,7 +75,7 @@ def test_start_staking(mocker: MockerFixture, network):
 def test_start_multistaking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.start_multistaking(
         wallet_credentials=[
             WalletSecret(wallet_name='Wallet0', wallet_password='password0'),
@@ -92,7 +92,7 @@ def test_start_multistaking(mocker: MockerFixture, network):
 def test_stop_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.stop_staking()
 
     # noinspection PyUnresolvedReferences

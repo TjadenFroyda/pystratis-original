@@ -42,7 +42,7 @@ def test_generate(mocker: MockerFixture, network, generate_uint256):
         ]
     }
     mocker.patch.object(Mining, 'post', return_value=data)
-    mining = Mining(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    mining = Mining(network=network, baseuri=mocker.MagicMock())
 
     response = mining.generate(block_count=2)
 
@@ -55,7 +55,7 @@ def test_generate(mocker: MockerFixture, network, generate_uint256):
 def test_stop_mining(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Mining, 'post', return_value=data)
-    mining = Mining(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    mining = Mining(network=network, baseuri=mocker.MagicMock())
 
     mining.stop_mining()
 
