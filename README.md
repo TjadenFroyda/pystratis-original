@@ -90,6 +90,8 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
+### Version 1.0.5.0 (StratisFullNode release/1.0.9.5)
+- Adding 'retrieve-filtered-utxos' endpoint for coldstaking
 ### Version 1.0.4.0 (StratisFullNode release/1.0.9.4)
 - Add optional block_height to LocalCallContractTransactionRequest (from 1.0.9.2 onwards)
 - Added new node definition (cirrusunity3dnode) with unity3d endpoints
