@@ -116,7 +116,7 @@ def test_history(mocker: MockerFixture, network, generate_uint256, generate_p2pk
         }
     ]
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.history(max_entries_to_return=2)
     assert response == [WithdrawalModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -127,7 +127,7 @@ def test_history(mocker: MockerFixture, network, generate_uint256, generate_p2pk
 def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     federation_wallet.sync(block_hash=generate_uint256)
     # noinspection PyUnresolvedReferences
     federation_wallet.post.assert_called_once()
@@ -137,7 +137,7 @@ def test_sync(mocker: MockerFixture, network, generate_uint256):
 def test_enable_federation(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.enable_federation(
         mnemonic='secret mnemonic',
         password='password',
@@ -156,7 +156,7 @@ def test_remove_transactions(mocker: MockerFixture, network, generate_uint256):
         'creationTime': '2020-01-01T00:00:01'
     }]
     mocker.patch.object(FederationWallet, 'delete', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.remove_transactions(resync=True)
     assert response == [RemovedTransactionModel(**x) for x in data]
     # noinspection PyUnresolvedReferences

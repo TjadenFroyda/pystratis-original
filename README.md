@@ -90,6 +90,9 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
+### Version 1.0.4.0 (StratisFullNode release/1.0.9.4)
+- Add optional block_height to LocalCallContractTransactionRequest (from 1.0.9.2 onwards)
+- Added new node definition (cirrusunity3dnode) with unity3d endpoints
 ### Version 1.0.3.0 (StratisFullNode release/1.0.9.3)
 - No API updates for SFN release/1.0.9.3
 ### Version 1.0.2.0 (StratisFullNode release/1.0.9.2)
