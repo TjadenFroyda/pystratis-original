@@ -97,7 +97,7 @@ def test_get_blockheader(mocker: MockerFixture, network, generate_uint256):
         'time': 1,
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
     response = node.get_blockheader(
         block_hash=generate_uint256,
         is_json_format=True
@@ -113,7 +113,7 @@ def test_get_raw_transaction_verbose(mocker: MockerFixture, network, generate_co
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.get_raw_transaction(trxid=trxid, verbose=True)
 
@@ -128,7 +128,7 @@ def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, generate
     data = generate_coinbase_transaction(trxid)
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'get', return_value=hexified_data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.get_raw_transaction(trxid=trxid, verbose=False)
 
@@ -145,7 +145,7 @@ def test_decode_raw_transaction(mocker: MockerFixture, network, generate_uint256
     data = generate_coinbase_transaction(trxid)
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.decode_raw_transaction(raw_hex=hexified_data)
 
@@ -165,7 +165,7 @@ def test_validate_address(mocker: MockerFixture, network, generate_p2pkh_address
         'iswitness': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.validate_address(address=address)
 
@@ -192,7 +192,7 @@ def test_get_txout(mocker: MockerFixture, network, generate_uint256, generate_he
         'coinbase': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.get_txout(trxid=generate_uint256, vout=0, include_mempool=False)
 
@@ -205,7 +205,7 @@ def test_get_txout(mocker: MockerFixture, network, generate_uint256, generate_he
 def test_get_txout_proof(mocker: MockerFixture, network, generate_uint256, generate_hexstring):
     data = generate_hexstring(128)
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
     response = node.get_txout_proof(
         txids=[
             generate_uint256,
@@ -223,7 +223,7 @@ def test_get_txout_proof(mocker: MockerFixture, network, generate_uint256, gener
 def test_shutdown(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     node.shutdown()
 
@@ -235,7 +235,7 @@ def test_shutdown(mocker: MockerFixture, network):
 def test_stop(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     node.stop()
 
@@ -247,7 +247,7 @@ def test_stop(mocker: MockerFixture, network):
 def test_log_levels(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'put', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     node.log_levels(log_rules=[LogRule(rule_name='TestRule', log_level='Debug', filename='filename')])
 
@@ -266,7 +266,7 @@ def test_log_rules(mocker: MockerFixture, network):
     ]
 
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.log_rules()
 
@@ -284,7 +284,7 @@ def test_async_loops(mocker: MockerFixture, network):
         }
     ]
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    node = Node(network=network, baseuri=mocker.MagicMock())
 
     response = node.async_loops()
 

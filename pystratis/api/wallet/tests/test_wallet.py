@@ -56,7 +56,7 @@ def test_mnemonic(mocker: MockerFixture, network):
 def test_create(mocker: MockerFixture, network):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.create(
         mnemonic=data,
@@ -78,7 +78,7 @@ def test_sign_message(mocker: MockerFixture, network, generate_p2pkh_address, ge
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = sig
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.sign_message(
         wallet_name='Test',
@@ -96,7 +96,7 @@ def test_sign_message(mocker: MockerFixture, network, generate_p2pkh_address, ge
 def test_pubkey(mocker: MockerFixture, network, generate_uncompressed_pubkey, generate_p2pkh_address):
     data = generate_uncompressed_pubkey
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.pubkey(
         wallet_name='Test',
@@ -116,7 +116,7 @@ def test_verify_message(mocker: MockerFixture, network, generate_p2pkh_address, 
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = True
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     response = wallet.verify_message(
         signature=sig,
         external_address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -132,7 +132,7 @@ def test_verify_message(mocker: MockerFixture, network, generate_p2pkh_address, 
 def test_load(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     wallet.load(name='Test', password='password')
 
@@ -144,7 +144,7 @@ def test_load(mocker: MockerFixture, network):
 def test_recover(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     wallet.recover(
         mnemonic='mnemonic',
         password='password',
@@ -161,7 +161,7 @@ def test_recover(mocker: MockerFixture, network):
 def test_recover_via_extpubkey(mocker: MockerFixture, network, generate_extpubkey):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     wallet.recover_via_extpubkey(
         extpubkey=generate_extpubkey,
         account_index=0,
@@ -186,7 +186,7 @@ def test_general_info(mocker: MockerFixture, network):
         'connectedNodes': 10
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     response = wallet.general_info(name='Test')
 
     assert response == WalletGeneralInfoModel(**data)
@@ -198,7 +198,7 @@ def test_general_info(mocker: MockerFixture, network):
 def test_transaction_count(mocker: MockerFixture, network):
     data = {'transactionCount': 5}
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.transaction_count(
         wallet_name='Test',
@@ -243,7 +243,7 @@ def test_history(mocker: MockerFixture, network, generate_p2pkh_address, generat
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.history(
         wallet_name='Test',
@@ -285,7 +285,7 @@ def test_balance(mocker: MockerFixture, network, get_base_keypath, generate_p2pk
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     response = wallet.balance(
         wallet_name='Test',
         account_name='account 0',
@@ -307,7 +307,7 @@ def test_received_by_address(mocker: MockerFixture, network, generate_p2pkh_addr
         'spendableAmount': 5
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.received_by_address(address=Address(address=data['address'], network=network))
 
@@ -323,7 +323,7 @@ def test_max_balance(mocker: MockerFixture, network):
         'fee': 10000
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.max_balance(
         wallet_name='Test',
@@ -353,7 +353,7 @@ def test_spendable_transactions(mocker: MockerFixture, network, generate_uint256
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     response = wallet.spendable_transactions(
         wallet_name='Test',
         account_name='account 0',
@@ -369,7 +369,7 @@ def test_spendable_transactions(mocker: MockerFixture, network, generate_uint256
 def test_estimate_txfee(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = 10000
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
     response = wallet.estimate_txfee(
         wallet_name='Test',
         account_name='account 0',
@@ -403,7 +403,7 @@ def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_addres
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.build_transaction(
         fee_amount=Money(0.0001),
@@ -440,7 +440,7 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, generate_p2
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.build_interflux_transaction(
         destination_chain=DestinationChain.ETH,
@@ -484,7 +484,7 @@ def test_send_transaction(mocker: MockerFixture, network, generate_uint256, gene
         ]
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.send_transaction(transaction_hex=generate_hexstring(128))
 
@@ -497,7 +497,7 @@ def test_send_transaction(mocker: MockerFixture, network, generate_uint256, gene
 def test_list_wallets(mocker: MockerFixture, network):
     data = {'walletNames': ['Test'], 'watchOnlyWallets': []}
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.list_wallets()
 
@@ -510,7 +510,7 @@ def test_list_wallets(mocker: MockerFixture, network):
 def test_account(mocker: MockerFixture, network):
     data = 'Test'
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.account(password='password', wallet_name='Test')
 
@@ -523,7 +523,7 @@ def test_account(mocker: MockerFixture, network):
 def test_accounts(mocker: MockerFixture, network):
     data = ['account 0', 'account 1']
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.accounts(wallet_name='Test')
 
@@ -536,7 +536,7 @@ def test_accounts(mocker: MockerFixture, network):
 def test_unused_address(mocker: MockerFixture, network, generate_p2pkh_address):
     data = generate_p2pkh_address(network=network)
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.unused_address(
         wallet_name='Test',
@@ -556,7 +556,7 @@ def test_unused_addresses(mocker: MockerFixture, network, generate_p2pkh_address
         generate_p2pkh_address(network=network)
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.unused_addresses(
         wallet_name='Test',
@@ -577,7 +577,7 @@ def test_new_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
         generate_p2pkh_address(network=network)
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.new_addresses(
         wallet_name='Test',
@@ -605,7 +605,7 @@ def test_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.addresses(
         wallet_name='Test',
@@ -635,7 +635,7 @@ def test_remove_transactions(mocker: MockerFixture, network, generate_uint256):
         }
     ]
     mocker.patch.object(Wallet, 'delete', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.remove_transactions(
         wallet_name='Test',
@@ -654,7 +654,7 @@ def test_remove_transactions(mocker: MockerFixture, network, generate_uint256):
 def test_remove_wallet(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'delete', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     wallet.remove_wallet(wallet_name='Test')
 
@@ -666,7 +666,7 @@ def test_remove_wallet(mocker: MockerFixture, network):
 def test_extpubkey(mocker: MockerFixture, network, generate_extpubkey):
     data = generate_extpubkey
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.extpubkey(wallet_name='Test', account_name='account 0')
 
@@ -679,7 +679,7 @@ def test_extpubkey(mocker: MockerFixture, network, generate_extpubkey):
 def test_private_key(mocker: MockerFixture, network, generate_privatekey, generate_p2pkh_address):
     data = generate_privatekey()
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.private_key(
         password='password',
@@ -696,7 +696,7 @@ def test_private_key(mocker: MockerFixture, network, generate_privatekey, genera
 def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     wallet.sync(block_hash=generate_uint256)
 
@@ -708,7 +708,7 @@ def test_sync(mocker: MockerFixture, network, generate_uint256):
 def test_sync_from_date(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     wallet.sync_from_date(
         date='2020-01-01T00:00:01',
@@ -748,7 +748,7 @@ def test_wallet_stats(mocker: MockerFixture, network):
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.wallet_stats(
         wallet_name=data['walletName'],
@@ -795,7 +795,7 @@ def test_split_coins(mocker: MockerFixture, network, generate_uint256, generate_
         ]
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.split_coins(
         wallet_name='Test',
@@ -855,7 +855,7 @@ def test_distribute_utxos(mocker: MockerFixture, network, generate_uint256, gene
     }
 
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.distribute_utxos(
         wallet_name='Test',
@@ -890,7 +890,7 @@ def test_sweep(mocker: MockerFixture, network, generate_privatekey, generate_uin
         generate_uint256
     ]
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.sweep(
         private_keys=private_keys,
@@ -924,7 +924,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, generate_p2p
     }
 
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.build_offline_sign_request(
         fee_amount=Money(0.0001),
@@ -959,7 +959,7 @@ def test_offline_sign_request(mocker: MockerFixture, network, get_base_keypath, 
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.offline_sign_request(
         wallet_password='password',
@@ -993,7 +993,7 @@ def test_offline_sign_request(mocker: MockerFixture, network, get_base_keypath, 
 def test_consolidate(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     data = generate_hexstring(128)
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock())
 
     response = wallet.consolidate(
         wallet_password='password',

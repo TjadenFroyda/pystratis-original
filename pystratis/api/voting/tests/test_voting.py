@@ -109,7 +109,7 @@ def test_pending_polls(mocker: MockerFixture, network, generate_compressed_pubke
         }
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.pending_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=kicked_pubkey
@@ -145,7 +145,7 @@ def test_finished_polls(mocker: MockerFixture, network, generate_uint256, genera
         }
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.finished_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=generate_compressed_pubkey
@@ -158,7 +158,7 @@ def test_finished_polls(mocker: MockerFixture, network, generate_uint256, genera
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     voting.schedulevote_whitelisthash(hash_id=generate_uint256)
     # noinspection PyUnresolvedReferences
     voting.post.assert_called_once()
@@ -167,7 +167,7 @@ def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, generate_ui
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_scheduledvote_removehash(mocker: MockerFixture, network, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     voting.schedulevote_removehash(hash_id=generate_uint256)
     # noinspection PyUnresolvedReferences
     voting.post.assert_called_once()
@@ -187,7 +187,7 @@ def test_whitelistedhashes(mocker: MockerFixture, network, generate_uint256):
         },
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.whitelisted_hashes()
     assert response == [WhitelistedHashesModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -211,7 +211,7 @@ def test_scheduledvotes(mocker: MockerFixture, network, generate_uint256, genera
         },
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
-    voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.scheduled_votes()
     assert response == [VotingDataModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
