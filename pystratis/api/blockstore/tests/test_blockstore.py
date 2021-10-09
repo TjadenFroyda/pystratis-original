@@ -56,7 +56,7 @@ def test_addressindexertip(mocker: MockerFixture, network, generate_uint256):
 def test_block_output_hexstr_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
     data = pickle.dumps(generate_block_no_tx_data()).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -73,7 +73,7 @@ def test_block_output_hexstr_no_details(mocker: MockerFixture, network, generate
 def test_block_output_hexstr_include_details(mocker: MockerFixture, network, generate_uint256, generate_block_with_tx_data):
     data = pickle.dumps(generate_block_with_tx_data(network=network)).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -90,7 +90,7 @@ def test_block_output_hexstr_include_details(mocker: MockerFixture, network, gen
 def test_block_output_json_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
     data = generate_block_no_tx_data()
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -106,7 +106,7 @@ def test_block_output_json_no_details(mocker: MockerFixture, network, generate_u
 def test_block_output_json_include_details(mocker: MockerFixture, network, generate_uint256, generate_block_with_tx_data):
     data = generate_block_with_tx_data(network=network)
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -123,7 +123,7 @@ def test_block_output_json_include_details(mocker: MockerFixture, network, gener
 def test_block_no_found(mocker: MockerFixture, network, generate_uint256):
     data = 'Block not found'
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -140,7 +140,7 @@ def test_block_no_found(mocker: MockerFixture, network, generate_uint256):
 def test_getblockcount(mocker: MockerFixture, network):
     data = 10
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
     response = blockstore.get_block_count()
 
     assert response == data
@@ -158,7 +158,7 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, gener
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_addresses_balances(addresses=address)
 
@@ -185,7 +185,7 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, g
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_addresses_balances(addresses=addresses)
 
@@ -205,7 +205,7 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=address)
 
@@ -234,7 +234,7 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
     }
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=addresses)
 
@@ -255,7 +255,7 @@ def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixtu
     }
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=address)
 
@@ -281,7 +281,7 @@ def test_getutxoset(mocker: MockerFixture, network, generate_uint256, generate_h
         },
     ]
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_utxo_set(at_block_height=2)
 
@@ -294,7 +294,7 @@ def test_getutxoset(mocker: MockerFixture, network, generate_uint256, generate_h
 def test_getutxoset_empty(mocker: MockerFixture, network, generate_uint256, generate_hexstring):
     data = []
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_utxo_set(at_block_height=2)
 
@@ -311,7 +311,7 @@ def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, generat
         'blockHeight': 1
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
 
     response = blockstore.get_last_balance_update_transaction(address=address)
 

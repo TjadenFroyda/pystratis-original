@@ -93,7 +93,8 @@ Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contribu
 ### Version 1.0.3.0 (StratisFullNode release/1.0.9.3)
 - No API updates for SFN release/1.0.9.3
 ### Version 1.0.2.0 (StratisFullNode release/1.0.9.2)
-- No API updates for SFN release/1.0.9.2
+- Add optional block_height to LocalCallContractTransactionRequest
+- Added new node definition (cirrusunity3dnode) with unity3d endpoints
 ### Version 1.0.1.0 (StratisFullNode release/1.0.9.1)
 - Updates for SFN release/1.0.9.1
   - Note: wallet.history strax integration test fails due to negative fee returned when address specified.

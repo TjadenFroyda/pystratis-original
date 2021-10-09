@@ -59,7 +59,7 @@ def test_list_methods(mocker: MockerFixture, network):
         }
     ]
     mocker.patch.object(RPC, 'get', return_value=data)
-    rpc = RPC(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    rpc = RPC(network=network, baseuri=mocker.MagicMock())
 
     response = rpc.list_methods()
 
