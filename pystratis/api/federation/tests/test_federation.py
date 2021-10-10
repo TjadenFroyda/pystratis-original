@@ -61,7 +61,10 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
         "pubkey": generate_compressed_pubkey,
         "collateralAmount": 50000,
         "lastActiveTime": get_datetime(5),
-        "periodOfInactivity": "00:02:32.9200000"
+        "periodOfInactivity": "00:02:32.9200000",
+        "producedBlockInLastRound": True,
+        "federationSize": 2,
+        "miningStats": {"minerHits": 1, "lastBlockProducedHeight": 10}
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)

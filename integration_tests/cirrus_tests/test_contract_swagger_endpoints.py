@@ -1,6 +1,5 @@
 import pytest
 from pystratis.nodes import CirrusMinerNode
-from pystratis.core.types import uint256, hexstr
 from pystratis.api.contract_swagger.responsemodels import *
 
 

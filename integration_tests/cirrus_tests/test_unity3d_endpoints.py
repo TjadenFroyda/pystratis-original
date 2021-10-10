@@ -1,10 +1,8 @@
 import pytest
-import pytest
 from pystratis.nodes import CirrusUnity3DNode, CirrusMinerNode
 from pystratis.api.unity3d.responsemodels import *
-from pystratis.core.networks import CirrusRegTest
 from pystratis.core import SmartContractParameter, SmartContractParameterType, Recipient, Outpoint
-from pystratis.core.types import Address, Money, hexstr, uint256, int32
+from pystratis.core.types import Money, hexstr, uint256, int32
 
 
 @pytest.mark.integration_test
