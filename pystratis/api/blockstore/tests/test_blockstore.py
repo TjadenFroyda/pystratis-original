@@ -8,34 +8,6 @@ from pystratis.core.types import Address
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if BlockStore.route + '/' in endpoint:
-            assert endpoint in BlockStore.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if BlockStore.route + '/' in endpoint:
-            assert endpoint in BlockStore.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if BlockStore.route + '/' in endpoint:
-            assert endpoint in BlockStore.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if BlockStore.route + '/' in endpoint:
-            assert endpoint in BlockStore.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_addressindexertip(mocker: MockerFixture, network, generate_uint256):
     data = {
@@ -316,5 +288,34 @@ def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, generat
     response = blockstore.get_last_balance_update_transaction(address=address)
 
     assert response == GetLastBalanceUpdateTransactionModel(**data)
+    # noinspection PyUnresolvedReferences
+    blockstore.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_utxoset_for_address(mocker: MockerFixture, network, generate_uint256, generate_hexstring, generate_p2pkh_address):
+    data = {
+        'balance': 5000,
+        'utxos': [
+            {
+                "txId": generate_uint256,
+                "index": 0,
+                "scriptPubKey": generate_hexstring(64),
+                "value": 4000
+            },
+            {
+                "txId": generate_uint256,
+                "index": 0,
+                "scriptPubKey": generate_hexstring(64),
+                "value": 1000
+            }
+        ]
+    }
+    mocker.patch.object(BlockStore, 'get', return_value=data)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock())
+
+    response = blockstore.get_utxoset_for_address(address=generate_p2pkh_address(network))
+
+    assert response == GetUTXOsForAddressModel(**data)
     # noinspection PyUnresolvedReferences
     blockstore.get.assert_called_once()

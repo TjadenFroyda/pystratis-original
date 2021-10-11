@@ -7,34 +7,6 @@ from pystratis.core.networks import CirrusMain
 from pystratis.api.global_responsemodels import PollViewModel
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if Voting.route + '/' in endpoint:
-            assert endpoint in Voting.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Voting.route + '/' in endpoint:
-            assert endpoint in Voting.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if Voting.route + '/' in endpoint:
-            assert endpoint in Voting.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if Voting.route + '/' in endpoint:
-            assert endpoint in Voting.endpoints
-
-
 def test_missing_one_poll_request_item_is_ok(generate_compressed_pubkey):
     PollsRequest(
             vote_type=VoteKey.KickFederationMember
@@ -214,5 +186,16 @@ def test_scheduledvotes(mocker: MockerFixture, network, generate_uint256, genera
     voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.scheduled_votes()
     assert response == [VotingDataModel(**x) for x in data]
+    # noinspection PyUnresolvedReferences
+    voting.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
+def test_polls_tip(mocker: MockerFixture, network):
+    data = 10
+    mocker.patch.object(Voting, 'get', return_value=data)
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
+    response = voting.polls_tip()
+    assert response == data
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()

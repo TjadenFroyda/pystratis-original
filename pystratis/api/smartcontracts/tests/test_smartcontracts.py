@@ -7,34 +7,6 @@ from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint25
 from pystratis.core.networks import CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
     data = {
@@ -105,7 +77,8 @@ def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexs
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }
 
     mocker.patch.object(SmartContracts, 'get', return_value=data)
@@ -140,7 +113,8 @@ def test_receipt_search(mocker: MockerFixture, network, generate_uint256, genera
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
