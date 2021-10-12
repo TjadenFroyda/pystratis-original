@@ -5,34 +5,6 @@ from pystratis.api.dynamic_contract import DynamicContract
 from pystratis.api.dynamic_contract.responsemodels import *
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if DynamicContract.route + '/' in endpoint:
-            assert endpoint in DynamicContract.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if DynamicContract.route + '/' in endpoint:
-            assert endpoint in DynamicContract.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if DynamicContract.route + '/' in endpoint:
-            assert endpoint in DynamicContract.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if DynamicContract.route + '/' in endpoint:
-            assert endpoint in DynamicContract.endpoints
-
-
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_property(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     sc_address = generate_p2pkh_address(network=network)

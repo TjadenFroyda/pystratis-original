@@ -6,34 +6,6 @@ from pystratis.core import CrossChainTransferStatus, DepositRetrievalType
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_deposits(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     target_network = StraxMain() if isinstance(network, CirrusMain) else CirrusMain()
